@@ -26,15 +26,8 @@ namespace ApplicationLayer.Services
                 //var sortedPrices = prices.OrderBy(p => p.StartDate).ToList();
                 var paddedPrices = PadMissingTimes(prices.ToList(), startDate, endDate);
 
-                //foreach (ElectricityPriceData price in paddedPrices)
-                //{
-                //    _logger.LogInformation("Retrieved price data: Start Date: {StartDate}, End Date: {EndDate}, Price: {Price}",
-                //        price.StartDate, price.EndDate, price.Price);
-                //}
-
                 _logger.LogInformation("Electricity prices retrieved successfully for period: {StartDate} - {EndDate}.", startDate, endDate);
                 return paddedPrices;
-                //return prices;
             }
             catch (Exception ex)
             {

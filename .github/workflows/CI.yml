@@ -1,0 +1,35 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0
+
+      - name: Restore dependencies for main project
+        run: dotnet restore DatabaseMicroService/DatabaseMicroService.csproj
+
+      - name: Restore dependencies for test project
+        run: dotnet restore TestProject/TestProject.csproj
+
+      - name: Build main project
+        run: dotnet build DatabaseMicroService/DatabaseMicroService.csproj --no-restore
+
+      - name: Build test project
+        run: dotnet build TestProject/TestProject.csproj --no-restore
+
+      - name: Run tests
+        run: dotnet test TestProject/TestProject.csproj --no-build --verbosity normal

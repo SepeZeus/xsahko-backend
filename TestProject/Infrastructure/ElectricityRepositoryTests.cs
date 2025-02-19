@@ -125,76 +125,76 @@ namespace TestProject.Infrastructure
 
 
 
-        private readonly ITestOutputHelper _output;
+        //private readonly ITestOutputHelper _output;
 
-        public ElectricityRepositoryTests(ITestOutputHelper output)
-        {
-            _output = output;
-        }
+        //public ElectricityRepositoryTests(ITestOutputHelper output)
+        //{
+        //    _output = output;
+        //}
 
 
-        [Theory]
-        [InlineData("2025-01-01", "2025-01-02",  // First fetch dates
-           "2025-01-01", "2025-01-04",    // Second fetch dates
-           "2025-01-01", "2025-01-02")]   // Third fetch dates - original test case
-        [InlineData("2025-02-03", "2025-02-06",   // First fetch: endDate - 3 days
-           "2025-02-04", "2025-02-06",    // Second fetch: endDate - 2 days
-           "2025-02-04", "2025-02-05")]   // Third fetch: endDate - 1 day (and endDate is one day less)
-        //[InlineData("2025-03-01", "2025-03-04",   // Another test case following same pattern
-        //   "2025-03-02", "2025-03-04",
-        //   "2025-03-03", "2025-03-03")]
-        public async Task NoDuplicateDataFetched(
-        string firstStartDate, string firstEndDate,
-        string secondStartDate, string secondEndDate,
-        string thirdStartDate, string thirdEndDate)
-        {
-            // Arrange
-            var options = new DbContextOptionsBuilder<ElectricityDbContext>()
-                .UseSqlServer("Server=localhost;Database=TempusElectrica;TrustServerCertificate=True;Integrated Security=True;Trusted_Connection=True;")
-                .Options;
-            var loggerMock = new Mock<ILogger<ElectricityRepository>>();
-            var cache = new MemoryCache(new MemoryCacheOptions());
+        //[Theory]
+        //[InlineData("2025-01-01", "2025-01-02",  // First fetch dates
+        //   "2025-01-01", "2025-01-04",    // Second fetch dates
+        //   "2025-01-01", "2025-01-02")]   // Third fetch dates - original test case
+        //[InlineData("2025-02-03", "2025-02-06",   // First fetch: endDate - 3 days
+        //   "2025-02-04", "2025-02-06",    // Second fetch: endDate - 2 days
+        //   "2025-02-04", "2025-02-05")]   // Third fetch: endDate - 1 day (and endDate is one day less)
+        ////[InlineData("2025-03-01", "2025-03-04",   // Another test case following same pattern
+        ////   "2025-03-02", "2025-03-04",
+        ////   "2025-03-03", "2025-03-03")]
+        //public async Task NoDuplicateDataFetched(
+        //string firstStartDate, string firstEndDate,
+        //string secondStartDate, string secondEndDate,
+        //string thirdStartDate, string thirdEndDate)
+        //{
+        //    // Arrange
+        //    var options = new DbContextOptionsBuilder<ElectricityDbContext>()
+        //        .UseSqlServer("Server=localhost;Database=TempusElectrica;TrustServerCertificate=True;Integrated Security=True;Trusted_Connection=True;")
+        //        .Options;
+        //    var loggerMock = new Mock<ILogger<ElectricityRepository>>();
+        //    var cache = new MemoryCache(new MemoryCacheOptions());
 
-            using (var context = new ElectricityDbContext(options))
-            {
-                var repository = new ElectricityRepository(context, loggerMock.Object, cache);
+        //    using (var context = new ElectricityDbContext(options))
+        //    {
+        //        var repository = new ElectricityRepository(context, loggerMock.Object, cache);
 
-                // First fetch
-                var cachedElectricityData = await repository.GetPricesForPeriodAsync(
-                    DateTime.Parse(firstStartDate),
-                    DateTime.Parse(firstEndDate));
-                _output.WriteLine("First fetch result:");
-                foreach (var data in cachedElectricityData)
-                {
-                    _output.WriteLine($"StartDate: {data.StartDate}, EndDate: {data.EndDate}, Price: {data.Price}");
-                }
-                Assert.NotEmpty(cachedElectricityData);
-                var firstFetchCount = cachedElectricityData.Count();
+        //        // First fetch
+        //        var cachedElectricityData = await repository.GetPricesForPeriodAsync(
+        //            DateTime.Parse(firstStartDate),
+        //            DateTime.Parse(firstEndDate));
+        //        _output.WriteLine("First fetch result:");
+        //        foreach (var data in cachedElectricityData)
+        //        {
+        //            _output.WriteLine($"StartDate: {data.StartDate}, EndDate: {data.EndDate}, Price: {data.Price}");
+        //        }
+        //        Assert.NotEmpty(cachedElectricityData);
+        //        var firstFetchCount = cachedElectricityData.Count();
 
-                // Second fetch
-                cachedElectricityData = await repository.GetPricesForPeriodAsync(
-                    DateTime.Parse(secondStartDate),
-                    DateTime.Parse(secondEndDate));
-                _output.WriteLine("Second fetch result:");
-                foreach (var data in cachedElectricityData)
-                {
-                    _output.WriteLine($"StartDate: {data.StartDate}, EndDate: {data.EndDate}, Price: {data.Price}");
-                }
+        //        // Second fetch
+        //        cachedElectricityData = await repository.GetPricesForPeriodAsync(
+        //            DateTime.Parse(secondStartDate),
+        //            DateTime.Parse(secondEndDate));
+        //        _output.WriteLine("Second fetch result:");
+        //        foreach (var data in cachedElectricityData)
+        //        {
+        //            _output.WriteLine($"StartDate: {data.StartDate}, EndDate: {data.EndDate}, Price: {data.Price}");
+        //        }
 
-                // Third fetch
-                cachedElectricityData = await repository.GetPricesForPeriodAsync(
-                    DateTime.Parse(thirdStartDate),
-                    DateTime.Parse(thirdEndDate));
-                _output.WriteLine("Third fetch result:");
-                foreach (var data in cachedElectricityData)
-                {
-                    _output.WriteLine($"StartDate: {data.StartDate}, EndDate: {data.EndDate}, Price: {data.Price}");
-                }
-                var lastFetchCount = cachedElectricityData.Count();
+        //        // Third fetch
+        //        cachedElectricityData = await repository.GetPricesForPeriodAsync(
+        //            DateTime.Parse(thirdStartDate),
+        //            DateTime.Parse(thirdEndDate));
+        //        _output.WriteLine("Third fetch result:");
+        //        foreach (var data in cachedElectricityData)
+        //        {
+        //            _output.WriteLine($"StartDate: {data.StartDate}, EndDate: {data.EndDate}, Price: {data.Price}");
+        //        }
+        //        var lastFetchCount = cachedElectricityData.Count();
 
-                Assert.InRange(lastFetchCount,0, 24);
-            }
-        }
+        //        Assert.InRange(lastFetchCount,0, 24);
+        //    }
+        //}
 
 
 

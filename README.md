@@ -1,5 +1,8 @@
 # Tempus Electrica Backend
 
+![CI Pipeline](https://github.com/Sepezeus/xsahko-backend/actions/workflows/CI.yml/badge.svg)
+![CD Pipeline](https://github.com/Sepezeus/xsahko-backend/actions/workflows/CD.yml/badge.svg)
+
 ## Project Overview
 
 **Tempus Electrica Backend** is a C# service that calculates electricity consumption prices based on various inputs such as spot prices, fixed prices, and historical consumption data. The project follows a layered architecture, separating concerns such as data transfer, business logic, and data access.

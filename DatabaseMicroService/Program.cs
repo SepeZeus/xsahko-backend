@@ -178,6 +178,8 @@ public class Program
             .AddEnvironmentVariables()
             .AddUserSecrets<Program>();
 
+
+        //uncomment when local dev and also uncomment tests
         // // Get connection string directly from configuration
         // var dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
 

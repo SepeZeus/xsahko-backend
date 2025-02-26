@@ -124,7 +124,7 @@ namespace TestProject.Infrastructure
         }
 
 
-
+        //uncomment this and program.cs when developing locally
         //private readonly ITestOutputHelper _output;
 
         //public ElectricityRepositoryTests(ITestOutputHelper output)

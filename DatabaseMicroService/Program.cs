@@ -178,6 +178,7 @@ public class Program
             .AddEnvironmentVariables()
             .AddUserSecrets<Program>();
 
+        // test for main CD pipeline
         // // Get connection string directly from configuration
         // var dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
 

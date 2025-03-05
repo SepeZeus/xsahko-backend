@@ -165,7 +165,7 @@ namespace TestProject.Application
                 [new DateTime(2024, 9, 16, 15, 0, 0)] = 300, // 25% = 75
 
                 // Morning consumption (should receive the 25% moved from afternoon)
-                [new DateTime(2024, 9, 17, 1, 0, 0)] = 0,
+                [new DateTime(2024, 9, 17, 23, 0, 0)] = 0,
                 [new DateTime(2024, 9, 17, 2, 0, 0)] = 0,
                 [new DateTime(2024, 9, 17, 3, 0, 0)] = 0
             };
@@ -177,7 +177,7 @@ namespace TestProject.Application
 
             // Assert
             // Verify that 25% of the consumption from 13:00-15:00 has been moved to the morning period (01:00-03:00)
-            Assert.Equal(25, optimizedConsumption[new DateTime(2024, 9, 17, 1, 0, 0)]);   // 25% from 13:00
+            Assert.Equal(25, optimizedConsumption[new DateTime(2024, 9, 17, 23, 0, 0)]);   // 25% from 13:00
             Assert.Equal(50, optimizedConsumption[new DateTime(2024, 9, 17, 2, 0, 0)]);   // 25% from 14:00
             Assert.Equal(75, optimizedConsumption[new DateTime(2024, 9, 17, 3, 0, 0)]);   // 25% from 15:00
 

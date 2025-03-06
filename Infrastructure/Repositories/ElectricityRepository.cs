@@ -93,15 +93,6 @@ namespace Infrastructure.Repositories
             }
         }
 
-
-
-
-
-
-
-
-
-
         public async Task<IEnumerable<ElectricityPriceData>> GetPricesForPeriodAsync(DateTime startDate, DateTime endDate)
         {
             // Initial validation
@@ -193,9 +184,5 @@ namespace Infrastructure.Repositories
 
             return result.OrderBy(x => x.StartDate);
         }
-
-
-
-
     }
 }

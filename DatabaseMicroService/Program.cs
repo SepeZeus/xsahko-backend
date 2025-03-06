@@ -53,7 +53,7 @@ public class Program
             dbConnectionString = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
         }
 
-        dbConnectionString = "Database=localdb;Data Source=127.0.0.1:54443;User Id=azure;Password=6#vWHD_$"
+        dbConnectionString = "Database=localdb;Data Source=127.0.0.1:54443;User Id=azure;Password=6#vWHD_$";
 
         // Register the DbContext with the appropriate connection string
         builder.Services.AddDbContext<ElectricityDbContext>(options =>

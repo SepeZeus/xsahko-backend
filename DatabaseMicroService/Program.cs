@@ -60,8 +60,13 @@ public class Program
         dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
 
         // Register the DbContext with the appropriate connection string
+        //builder.Services.AddDbContext<ElectricityDbContext>(options =>
+        //    options.UseSqlServer(dbConnectionString));
+
         builder.Services.AddDbContext<ElectricityDbContext>(options =>
-            options.UseSqlServer(dbConnectionString));
+    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
+);
+
 
         // Service registrations
         builder.Services.AddScoped<IElectrictyService, ElectrictyService>();

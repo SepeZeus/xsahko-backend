@@ -7,7 +7,6 @@ using Infrastructure.Health;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using System.Configuration;
 using System.Text.Json.Serialization;
 
 public class Program
@@ -53,18 +52,21 @@ public class Program
             dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
 
             // Fetch connection string from Key Vault in non-development environments
-            var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
-            var vaultSecret = await keyVaultManager.GetSecretAsync();
-            dbConnectionString = vaultSecret.DbConnectionString;
+            //var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
+            //var vaultSecret = await keyVaultManager.GetSecretAsync();
+            //dbConnectionString = vaultSecret.DbConnectionString;
         }
 
-        // Register the DbContext with the appropriate connection string
-            builder.Services.AddDbContext<ElectricityDbContext>(options =>
-        options.UseMySql(
-            ServerVersion.AutoDetect(dbConnectionString)));
 
+
+        // Register the DbContext with the appropriate connection string
         //builder.Services.AddDbContext<ElectricityDbContext>(options =>
         //    options.UseSqlServer(dbConnectionString));
+
+        builder.Services.AddDbContext<ElectricityDbContext>(options =>
+    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
+);
+
 
         // Service registrations
         builder.Services.AddScoped<IElectrictyService, ElectrictyService>();

@@ -16,12 +16,12 @@ namespace Infrastructure.Migrations
                 name: "ElectricityPriceDatas",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    StartDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<string>(type: "CHAR(36)", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    StartDate = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    Price = table.Column<decimal>(type: "DECIMAL(18,2)", nullable: false),
+                    CreatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "DATETIME", nullable: false)
                 },
                 constraints: table =>
                 {

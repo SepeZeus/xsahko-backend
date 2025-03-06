@@ -7,6 +7,7 @@ using Infrastructure.Health;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using System.Configuration;
 using System.Text.Json.Serialization;
 
 public class Program
@@ -58,8 +59,12 @@ public class Program
         }
 
         // Register the DbContext with the appropriate connection string
-        builder.Services.AddDbContext<ElectricityDbContext>(options =>
-            options.UseSqlServer(dbConnectionString));
+            builder.Services.AddDbContext<ElectricityDbContext>(options =>
+        options.UseMySql(
+            ServerVersion.AutoDetect(dbConnectionString)));
+
+        //builder.Services.AddDbContext<ElectricityDbContext>(options =>
+        //    options.UseSqlServer(dbConnectionString));
 
         // Service registrations
         builder.Services.AddScoped<IElectrictyService, ElectrictyService>();

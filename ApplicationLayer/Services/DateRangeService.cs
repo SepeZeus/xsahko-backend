@@ -23,7 +23,6 @@ namespace ApplicationLayer.Services
             try
             {
                 IEnumerable<ElectricityPriceData> prices = await _electricityRepository.GetPricesForPeriodAsync(startDate, endDate);
-                //var sortedPrices = prices.OrderBy(p => p.StartDate).ToList();
                 var paddedPrices = PadMissingTimes(prices.ToList(), startDate, endDate);
 
                 _logger.LogInformation("Electricity prices retrieved successfully for period: {StartDate} - {EndDate}.", startDate, endDate);

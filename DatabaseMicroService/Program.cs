@@ -57,6 +57,8 @@ public class Program
             //dbConnectionString = vaultSecret.DbConnectionString;
         }
 
+        dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
+
         // Register the DbContext with the appropriate connection string
         builder.Services.AddDbContext<ElectricityDbContext>(options =>
             options.UseSqlServer(dbConnectionString));
@@ -86,17 +88,21 @@ public class Program
         // Build the app
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline
-        if (builder.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI();
-        }
-        else
-        {
-            var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
-            builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
-        }
+
+        app.UseSwagger();
+        app.UseSwaggerUI();
+
+        // // Configure the HTTP request pipeline
+        // if (builder.Environment.IsDevelopment())
+        // {
+        //     app.UseSwagger();
+        //     app.UseSwaggerUI();
+        // }
+        // else
+        // {
+        //     var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
+        //     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+        // }
 
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         logger.LogInformation("Application starting up");

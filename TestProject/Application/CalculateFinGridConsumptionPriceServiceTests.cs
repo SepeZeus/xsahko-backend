@@ -148,45 +148,45 @@ namespace TestProject.Application
 
 
 
-    //temp remove for other testing MySQL in App -- bring back later dumbo, also probs fixed by db update anyways
+        //temp remove for other testing MySQL in App -- bring back later dumbo, also probs fixed by db update anyways
 
-    //    [Fact]
-    //    public void OptimizeConsumption_ShouldMove25PercentOfAfternoonConsumptionToMorning()
-    //    {
-    //        // Arrange
-    //        var loggerMock = new Mock<ILogger<ConsumptionOptimizer>>();
-    //        var consumptionOptimizer = new ConsumptionOptimizer(loggerMock.Object);
+        //[Fact]
+        //public void OptimizeConsumption_ShouldMove25PercentOfAfternoonConsumptionToMorning()
+        //{
+        //    // Arrange
+        //    var loggerMock = new Mock<ILogger<ConsumptionOptimizer>>();
+        //    var consumptionOptimizer = new ConsumptionOptimizer(loggerMock.Object);
 
-    //        var hourlyConsumption = new ConcurrentDictionary<DateTime, decimal>
-    //        {
-    //            // Afternoon consumption
-    //            [new DateTime(2024, 9, 16, 13, 0, 0)] = 100, // 25% = 25
-    //            [new DateTime(2024, 9, 16, 14, 0, 0)] = 200, // 25% = 50
-    //            [new DateTime(2024, 9, 16, 15, 0, 0)] = 300, // 25% = 75
+        //    var hourlyConsumption = new ConcurrentDictionary<DateTime, decimal>
+        //    {
+        //        // Afternoon consumption
+        //        [new DateTime(2024, 9, 16, 13, 0, 0)] = 100, // 25% = 25
+        //        [new DateTime(2024, 9, 16, 14, 0, 0)] = 200, // 25% = 50
+        //        [new DateTime(2024, 9, 16, 15, 0, 0)] = 300, // 25% = 75
 
-    //            // Morning consumption (should receive the 25% moved from afternoon)
-    //            [new DateTime(2024, 9, 17, 23, 0, 0)] = 0,
-    //            [new DateTime(2024, 9, 17, 2, 0, 0)] = 0,
-    //            [new DateTime(2024, 9, 17, 3, 0, 0)] = 0
-    //        };
+        //        // Morning consumption (should receive the 25% moved from afternoon)
+        //        [new DateTime(2024, 9, 17, 23, 0, 0)] = 0,
+        //        [new DateTime(2024, 9, 17, 2, 0, 0)] = 0,
+        //        [new DateTime(2024, 9, 17, 3, 0, 0)] = 0
+        //    };
 
-    //        decimal optimizePercentage = 0.25M;
+        //    decimal optimizePercentage = 0.25M;
 
-    //        // Act
-    //        var optimizedConsumption = consumptionOptimizer.OptimizeConsumption(hourlyConsumption, optimizePercentage);
+        //    // Act
+        //    var optimizedConsumption = consumptionOptimizer.OptimizeConsumption(hourlyConsumption, optimizePercentage);
 
-    //        // Assert
-    //        // Verify that 25% of the consumption from 13:00-15:00 has been moved to the morning period (01:00-03:00)
-    //        Assert.Equal(25, optimizedConsumption[new DateTime(2024, 9, 17, 23, 0, 0)]);   // 25% from 13:00
-    //        Assert.Equal(50, optimizedConsumption[new DateTime(2024, 9, 17, 2, 0, 0)]);   // 25% from 14:00
-    //        Assert.Equal(75, optimizedConsumption[new DateTime(2024, 9, 17, 3, 0, 0)]);   // 25% from 15:00
+        //    // Assert
+        //    // Verify that 25% of the consumption from 13:00-15:00 has been moved to the morning period (01:00-03:00)
+        //    Assert.Equal(25, optimizedConsumption[new DateTime(2024, 9, 17, 23, 0, 0)]);   // 25% from 13:00
+        //    Assert.Equal(50, optimizedConsumption[new DateTime(2024, 9, 17, 2, 0, 0)]);   // 25% from 14:00
+        //    Assert.Equal(75, optimizedConsumption[new DateTime(2024, 9, 17, 3, 0, 0)]);   // 25% from 15:00
 
-    //        // Verify that the afternoon values have been reduced by the moved amounts
-    //        Assert.Equal(75, optimizedConsumption[new DateTime(2024, 9, 16, 13, 0, 0)]);   // 100 - 25
-    //        Assert.Equal(150, optimizedConsumption[new DateTime(2024, 9, 16, 14, 0, 0)]);  // 200 - 50
-    //        Assert.Equal(225, optimizedConsumption[new DateTime(2024, 9, 16, 15, 0, 0)]);  // 300 - 75
-    //    }
-    //}
+        //    // Verify that the afternoon values have been reduced by the moved amounts
+        //    Assert.Equal(75, optimizedConsumption[new DateTime(2024, 9, 16, 13, 0, 0)]);   // 100 - 25
+        //    Assert.Equal(150, optimizedConsumption[new DateTime(2024, 9, 16, 14, 0, 0)]);  // 200 - 50
+        //    Assert.Equal(225, optimizedConsumption[new DateTime(2024, 9, 16, 15, 0, 0)]);  // 300 - 75
+        //}
+    }
     public class TestConfiguration : IConfiguration
     {
         private readonly Dictionary<string, string> _settings;

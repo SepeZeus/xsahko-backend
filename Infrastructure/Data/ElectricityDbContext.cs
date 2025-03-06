@@ -1,7 +1,6 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace Infrastructure.Data
 {
     public class ElectricityDbContext : DbContext
@@ -9,6 +8,15 @@ namespace Infrastructure.Data
         public DbSet<ElectricityPriceData> ElectricityPriceDatas { get; set; }
 
         public ElectricityDbContext(DbContextOptions<ElectricityDbContext> options) : base(options) { }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseMySql("YourConnectionStringHere", new MySqlServerVersion(new Version(8, 0, 21)),
+                    b => b.MigrationsAssembly("Infrastructure"));
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -34,7 +42,6 @@ namespace Infrastructure.Data
                         .HasIndex(e => new { e.StartDate, e.EndDate })
                         .HasDatabaseName("IX_ElectricityPriceData_StartEndDate");
         }
-
 
         public override int SaveChanges()
         {
@@ -63,6 +70,5 @@ namespace Infrastructure.Data
                 baseEntity.UpdatedAt = now;
             }
         }
-
     }
 }

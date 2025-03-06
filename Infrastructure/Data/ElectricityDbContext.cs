@@ -1,4 +1,4 @@
-using Domain.Entities;
+﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 //comment -- github being stupid
@@ -14,7 +14,7 @@ namespace Infrastructure.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql("YourConnectionStringHere", new MySqlServerVersion(new Version(8, 0, 21)),
+                optionsBuilder.UseMySql("Server=localhost; Database=localdb;Port=3306;Uid=azure;Pwd=6#vWHD_$;", new MySqlServerVersion(new Version(8, 0, 21)),
                     b => b.MigrationsAssembly("Infrastructure"));
             }
         }

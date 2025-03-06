@@ -63,10 +63,13 @@ public class Program
         //builder.Services.AddDbContext<ElectricityDbContext>(options =>
         //    options.UseSqlServer(dbConnectionString));
 
-        builder.Services.AddDbContext<ElectricityDbContext>(options =>
-    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
-);
+        //        builder.Services.AddDbContext<ElectricityDbContext>(options =>
+        //    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
+        //);
 
+
+        builder.Services.AddDbContext<ElectricityDbContext>(options =>
+    options.UseSqlServer(dbConnectionString));
 
         // Service registrations
         builder.Services.AddScoped<IElectrictyService, ElectrictyService>();

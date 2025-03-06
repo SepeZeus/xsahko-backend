@@ -124,7 +124,7 @@ namespace TestProject.Infrastructure
         }
 
 
-
+        ////uncomment this and program.cs when developing locally
         //private readonly ITestOutputHelper _output;
 
         //public ElectricityRepositoryTests(ITestOutputHelper output)
@@ -149,14 +149,85 @@ namespace TestProject.Infrastructure
         //string thirdStartDate, string thirdEndDate)
         //{
         //    // Arrange
-        //    var options = new DbContextOptionsBuilder<ElectricityDbContext>()
-        //        .UseSqlServer("Server=localhost;Database=TempusElectrica;TrustServerCertificate=True;Integrated Security=True;Trusted_Connection=True;")
-        //        .Options;
+        //    //var options = new DbContextOptionsBuilder<ElectricityDbContext>()
+        //    //    .UseSqlServer("Server=localhost;Database=TempusElectrica;TrustServerCertificate=True;Integrated Security=True;Trusted_Connection=True;")
+        //    //    .Options;
+
+        //        var options = new DbContextOptionsBuilder<ElectricityDbContext>()
+        //.UseInMemoryDatabase(databaseName: "Test_IsDuplicateAsync_ShouldReturnFalse")
+        //.Options;
+
+
         //    var loggerMock = new Mock<ILogger<ElectricityRepository>>();
         //    var cache = new MemoryCache(new MemoryCacheOptions());
 
         //    using (var context = new ElectricityDbContext(options))
         //    {
+        //        //populating the in-memory database
+        //        var testData = new List<ElectricityPriceData>
+        //        {
+        //            // Data for January 2025
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 01, 01, 0, 0, 0),
+        //                EndDate = new DateTime(2025, 01, 01, 23, 0, 0),
+        //                Price = 10.50M,
+        //            },
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 01, 02, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 01, 02, 23, 0, 0),
+        //                Price = 11.25M,
+        //            },
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 01, 03, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 01, 03, 23, 0, 0),
+        //                Price = 10.75M,
+        //            },
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 01, 04, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 01, 04, 23, 0, 0),
+        //                Price = 11.00M,
+        //            },
+
+        //            // Data for February 2025
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 02, 03, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 02, 03, 23, 0, 0),
+        //                Price = 11.50M,
+        //            },
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 02, 04, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 02, 04, 23, 0, 0),
+        //                Price = 11.75M,
+        //            },
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 02, 05, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 02, 05, 23, 0, 0),
+        //                Price = 11.25M,
+        //            },
+        //            new ElectricityPriceData
+        //            {
+        //                StartDate = new DateTime(2025, 02, 06, 0, 0, 0),
+
+        //                EndDate = new DateTime(2025, 02, 06, 23, 0, 0),
+        //                Price= 11.00M,
+        //            }
+        //        };
+
+        //        await context.ElectricityPriceDatas.AddRangeAsync(testData);
+        //        await context.SaveChangesAsync()
         //        var repository = new ElectricityRepository(context, loggerMock.Object, cache);
 
         //        // First fetch
@@ -192,7 +263,7 @@ namespace TestProject.Infrastructure
         //        }
         //        var lastFetchCount = cachedElectricityData.Count();
 
-        //        Assert.InRange(lastFetchCount,0, 24);
+        //        Assert.InRange(lastFetchCount, 0, 24);
         //    }
         //}
 

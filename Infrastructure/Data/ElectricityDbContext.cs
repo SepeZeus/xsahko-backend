@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
+//comment -- github being stupid
 namespace Infrastructure.Data
 {
     public class ElectricityDbContext : DbContext

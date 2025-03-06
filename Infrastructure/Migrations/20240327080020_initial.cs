@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+//comment -- github being stupid
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />

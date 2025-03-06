@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
+//comment -- github being stupid
+
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(ElectricityDbContext))]

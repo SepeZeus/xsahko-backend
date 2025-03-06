@@ -49,13 +49,27 @@ public class Program
         }
         else
         {
-            // Fetch connection string from environment variable in non-development environments
-            dbConnectionString = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
+            dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
+
+            // Fetch connection string from Key Vault in non-development environments
+            //var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
+            //var vaultSecret = await keyVaultManager.GetSecretAsync();
+            //dbConnectionString = vaultSecret.DbConnectionString;
         }
 
+        dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
+
         // Register the DbContext with the appropriate connection string
+        //builder.Services.AddDbContext<ElectricityDbContext>(options =>
+        //    options.UseSqlServer(dbConnectionString));
+
+        //        builder.Services.AddDbContext<ElectricityDbContext>(options =>
+        //    options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString))
+        //);
+
+
         builder.Services.AddDbContext<ElectricityDbContext>(options =>
-            options.UseMySql(dbConnectionString, ServerVersion.AutoDetect(dbConnectionString)));
+    options.UseSqlServer(dbConnectionString));
 
         // Service registrations
         builder.Services.AddScoped<IElectrictyService, ElectrictyService>();
@@ -82,12 +96,26 @@ public class Program
         // Build the app
         var app = builder.Build();
 
+
         app.UseSwagger();
         app.UseSwaggerUI();
+
+        // // Configure the HTTP request pipeline
+        // if (builder.Environment.IsDevelopment())
+        // {
+        //     app.UseSwagger();
+        //     app.UseSwaggerUI();
+        // }
+        // else
+        // {
+        //     var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
+        //     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
+        // }
 
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         logger.LogInformation("Application starting up");
 
+        //app.Lifetime.ApplicationStarted.Register(() => logger.LogInformation("Application started"));
         app.Lifetime.ApplicationStarted.Register(async () =>
         {
             logger.LogInformation("Application started");

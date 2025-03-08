@@ -50,14 +50,10 @@ public class Program
         }
         else
         {
-            var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
-            builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
-            dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
 
-            // //Fetch connection string from Key Vault in non- development environments
-            //var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
-            //var vaultSecret = await keyVaultManager.GetSecretAsync();
-            //dbConnectionString = vaultSecret.DbConnectionString;
+            var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
+            var vaultSecret = await keyVaultManager.GetSecretAsync();
+            dbConnectionString = vaultSecret.DbConnectionString;
         }
 
         // Register the DbContext with the appropriate connection string

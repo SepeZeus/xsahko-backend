@@ -54,7 +54,7 @@ public class Program
             dbConnectionString = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
         }
 
-        dbConnectionString = "Database=localdb;Data Source=127.0.0.1:54443;User Id=azure;Password=6#vWHD_$";
+        dbConnectionString = "Database=localdb;Server=127.0.0.1;Port=54443;User Id=azure;Password=6#vWHD_$";
 
         // Register the DbContext with the appropriate connection string
         builder.Services.AddDbContext<ElectricityDbContext>(options =>
@@ -101,7 +101,7 @@ public class Program
         {
             logger.LogInformation("Application started");
 
-            await Task.Delay(TimeSpan.FromSeconds(60));
+            await Task.Delay(TimeSpan.FromSeconds(180));
 
 
             // Resolve the IElectricityRepository service

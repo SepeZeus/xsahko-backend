@@ -50,27 +50,15 @@ public class Program
         }
         else
         {
+            var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
+            builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
             dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
 
-             //Fetch connection string from Key Vault in non- development environments
-            var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
-            var vaultSecret = await keyVaultManager.GetSecretAsync();
-            dbConnectionString = vaultSecret.DbConnectionString;
+            // //Fetch connection string from Key Vault in non- development environments
+            //var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
+            //var vaultSecret = await keyVaultManager.GetSecretAsync();
+            //dbConnectionString = vaultSecret.DbConnectionString;
         }
-
-
-        //if (builder.Environment.IsDevelopment())
-        //{
-        //    // Fetch connection string from appsettings.json in development
-        //    dbConnectionString = builder.Configuration.GetConnectionString("ElectricityPriceDataContext");
-        //}
-        //else
-        //{
-        //    // Fetch connection string from environment variable in non-development environments
-        //    dbConnectionString = Environment.GetEnvironmentVariable("MYSQLCONNSTR_localdb");
-        //}
-
-        //dbConnectionString = "Database=localdb;Server=127.0.0.1;Port=54443;User Id=azure;Password=6#vWHD_$";
 
         // Register the DbContext with the appropriate connection string
         builder.Services.AddDbContext<ElectricityDbContext>(options =>
@@ -109,6 +97,7 @@ public class Program
 
         app.UseSwagger();
         app.UseSwaggerUI();
+
 
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         logger.LogInformation("Application starting up");
@@ -154,23 +143,3 @@ public class Program
 
 
 //////the keyvault stuff may or may not be important who knows
-
-
-//         app.UseSwagger();
-//         app.UseSwaggerUI();
-
-//         // // Configure the HTTP request pipeline
-//         // if (builder.Environment.IsDevelopment())
-//         // {
-//         //     app.UseSwagger();
-//         //     app.UseSwaggerUI();
-//         // }
-//         // else
-//         // {
-//         //     var keyVaultUrl = builder.Configuration["KeyVault:BaseUrl"];
-//         //     builder.Configuration.AddAzureKeyVault(new Uri(keyVaultUrl), new DefaultAzureCredential());
-//         // }
-
-//         var logger = app.Services.GetRequiredService<ILogger<Program>>();
-//         logger.LogInformation("Application starting up");
-//}

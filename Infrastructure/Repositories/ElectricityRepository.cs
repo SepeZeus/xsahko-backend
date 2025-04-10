@@ -112,6 +112,7 @@ namespace Infrastructure.Repositories
             var result = new List<ElectricityPriceData>();
             var datesToFetch = new List<(DateTime start, DateTime end)> { (startDate, endDate) };
 
+            //add missing dates and remove overlapping dates
             foreach (var range in cachedRanges)
             {
                 if (_cache.TryGetValue(range.CacheKey, out IEnumerable<ElectricityPriceData>? cachedData) && cachedData != null)
@@ -155,7 +156,7 @@ namespace Infrastructure.Repositories
             {
                 _logger.LogInformation("Found cached data for period");
             }
-
+            // Fetch missing data for dates
             foreach (var dateRange in datesToFetch)
             {
                 // Additional validation before fetching
@@ -181,8 +182,9 @@ namespace Infrastructure.Repositories
             {
                 _cache.Set("CachedRanges", cachedRanges, new MemoryCacheEntryOptions().SetSlidingExpiration(TimeSpan.FromMinutes(30)));
             }
-
+            //API thought dates should be out of order for ungodly reasons
             return result.OrderBy(x => x.StartDate);
         }
     }
 }
+

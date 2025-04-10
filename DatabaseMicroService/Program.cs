@@ -50,7 +50,6 @@ public class Program
         }
         else
         {
-
             var keyVaultManager = builder.Services.BuildServiceProvider().GetRequiredService<IKeyVaultSecretManager>();
             var vaultSecret = await keyVaultManager.GetSecretAsync();
             dbConnectionString = vaultSecret.DbConnectionString;
@@ -91,19 +90,36 @@ public class Program
         // Build the app
         var app = builder.Build();
 
+
         app.UseSwagger();
         app.UseSwaggerUI();
 
-
         var logger = app.Services.GetRequiredService<ILogger<Program>>();
         logger.LogInformation("Application starting up");
+
+        using (var scope = app.Services.CreateScope())
+        {
+            var services = scope.ServiceProvider;
+            try
+            {
+                var context = services.GetRequiredService<ElectricityDbContext>();
+                // This will create the database if it doesn't exist
+                // and apply any pending migrations
+                context.Database.Migrate();
+
+                logger.LogInformation("Database migration completed successfully");
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "An error occurred while migrating the database");
+            }
+        }
 
         app.Lifetime.ApplicationStarted.Register(async () =>
         {
             logger.LogInformation("Application started");
 
             await Task.Delay(TimeSpan.FromSeconds(180));
-
 
             // Resolve the IElectricityRepository service
             using (var scope = app.Services.CreateScope())
